@@ -40,7 +40,7 @@ def workdir_view(request):
     f = 'Список файлов рабочей директории: '
     for file in files:
         if os.path.isfile(file):
-            f += f'"{file}"'
+            f += f'"{file}", '
 
 
     return  HttpResponse(f[:-2])
