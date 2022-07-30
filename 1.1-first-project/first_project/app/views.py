@@ -43,4 +43,4 @@ def workdir_view(request):
             f += f'{file}'
 
 
-    return  HttpResponse(f'[:-2]')
+    return  HttpResponse(f[:-2])
