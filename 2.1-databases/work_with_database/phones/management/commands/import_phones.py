@@ -1,0 +1,25 @@
+import csv
+from datetime import datetime as dt
+
+from django.core.management.base import BaseCommand
+from phones.models import Phone
+
+
+class Command(BaseCommand):
+    def add_arguments(self, parser):
+        pass
+
+    def handle(self, *args, **options):
+        with open('phones.csv', 'r') as file:
+            phones = list(csv.DictReader(file, delimiter=';'))
+
+        for phone in phones:
+            phone = Phone(
+                name=phone['name'],
+                image=phone['image'],
+                price=phone['price'],
+                release_date=dt.fromisoformat(phone['release_date']),
+                lte_exists=phone['lte_exists'],
+                slug='_'.join([t.lower() for t in phone['name'].split()])
+            )
+            phone.save()
